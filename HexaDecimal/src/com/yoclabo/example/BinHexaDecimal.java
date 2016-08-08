@@ -30,22 +30,29 @@ public class BinHexaDecimal implements IHexaDecimal {
 
     private Byte[] myValue;
 
-    @Override
-    public Object GetValue() {
-        // TODO Auto-generated method stub
-        return null;
+    public void SetValue(Byte[] arg) {
+        myValue = arg;
     }
 
     @Override
-    public void ValueToHexa() {
-        // TODO Auto-generated method stub
+    public Byte[] GetValue() {
+        return myValue;
+    }
 
+    private ArrayList<Byte> hexaValue;
+
+    @Override
+    public void ValueToHexa() {
+        hexaValue = new ArrayList<Byte>();
+        int length = myValue.length;
+        for (int i = 0; i < length; i++) {
+            hexaValue.add(myValue[i]);
+        }
     }
 
     @Override
     public ArrayList<Byte> GetHexa() {
-        // TODO Auto-generated method stub
-        return null;
+        return hexaValue;
     }
 
 }
