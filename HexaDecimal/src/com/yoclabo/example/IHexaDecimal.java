@@ -1,8 +1,9 @@
 package com.yoclabo.example;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface IHexaDecimal {
+
     public void SetType(ValueType arg);
 
     public ValueType GetType();
@@ -11,9 +12,16 @@ public interface IHexaDecimal {
 
     public int GetSize();
 
+    public void SetValue(Object arg);
+
     public Object GetValue();
+
+    public void SetHexa(List<Byte> arg);
+
+    public List<Byte> GetHexa();
 
     public void ValueToHexa();
 
-    public ArrayList<Byte> GetHexa();
+    public void HexaToValue();
+
 }

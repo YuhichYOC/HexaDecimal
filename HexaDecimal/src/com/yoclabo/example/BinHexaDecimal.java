@@ -1,58 +1,28 @@
 package com.yoclabo.example;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
-public class BinHexaDecimal implements IHexaDecimal {
-
-    private ValueType myType;
-
-    @Override
-    public void SetType(ValueType arg) {
-        myType = arg;
-    }
-
-    @Override
-    public ValueType GetType() {
-        return myType;
-    }
-
-    private int mySize;
-
-    @Override
-    public void SetSize(int arg) {
-        mySize = arg;
-    }
-
-    @Override
-    public int GetSize() {
-        return mySize;
-    }
+public class BinHexaDecimal extends BaseHexaDecimal {
 
     private Byte[] myValue;
 
-    public void SetValue(Byte[] arg) {
-        myValue = arg;
+    @Override
+    public void SetValue(Object arg) {
+        myValue = (Byte[]) arg;
     }
 
     @Override
-    public Byte[] GetValue() {
+    public Object GetValue() {
         return myValue;
     }
 
-    private ArrayList<Byte> hexaValue;
-
     @Override
     public void ValueToHexa() {
-        hexaValue = new ArrayList<Byte>();
-        int length = myValue.length;
-        for (int i = 0; i < length; i++) {
-            hexaValue.add(myValue[i]);
-        }
+        super.hexaValue = Arrays.asList(myValue);
     }
 
     @Override
-    public ArrayList<Byte> GetHexa() {
-        return hexaValue;
+    public void HexaToValue() {
+        myValue = super.hexaValue.toArray(myValue);
     }
-
 }

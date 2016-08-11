@@ -1,54 +1,32 @@
 package com.yoclabo.example;
 
-import java.util.ArrayList;
+public class IntHexaDecimal extends BaseHexaDecimal {
 
-public class IntHexaDecimal implements IHexaDecimal {
-
-    private ValueType myType;
+    private Integer myValue;
 
     @Override
-    public void SetType(ValueType arg) {
-        myType = arg;
+    public void SetValue(Object arg) {
+        myValue = (Integer) arg;
     }
 
     @Override
-    public ValueType GetType() {
-        return myType;
-    }
-
-    private int mySize;
-
-    @Override
-    public void SetSize(int arg) {
-        mySize = arg;
-    }
-
-    @Override
-    public int GetSize() {
-        return mySize;
-    }
-
-    private int myValue;
-
-    public void SetValue(int arg) {
-        myValue = arg;
-    }
-
-    @Override
-    public int GetValue() {
+    public Object GetValue() {
         return myValue;
     }
 
     @Override
     public void ValueToHexa() {
-        // TODO Auto-generated method stub
-        
+        String valueHex = myValue.toString();
+        valueHex = PadPrefix(valueHex);
+        for (int i = 0; i < valueHex.length() / 2; i++) {
+            String oneChar = valueHex.substring(i * 2, i * 2 + 2);
+            hexaValue.add((byte) Integer.parseInt(oneChar, 16));
+        }
     }
 
     @Override
-    public ArrayList<Byte> GetHexa() {
-        // TODO Auto-generated method stub
-        return null;
+    public void HexaToValue() {
+        myValue = Integer.parseInt(ListConcat(), 16);
     }
 
 }
