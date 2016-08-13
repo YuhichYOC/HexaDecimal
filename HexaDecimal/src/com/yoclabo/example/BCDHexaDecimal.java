@@ -1,6 +1,14 @@
 package com.yoclabo.example;
 
+import java.util.ArrayList;
+
 public class BCDHexaDecimal extends BaseHexaDecimal {
+
+    public BCDHexaDecimal(int size) {
+        super.myType = ValueType.BCD;
+        super.mySize = size;
+        super.hexaValue = new ArrayList<Byte>();
+    }
 
     private Integer myValue;
 

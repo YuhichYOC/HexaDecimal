@@ -1,8 +1,15 @@
 package com.yoclabo.example;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class BinHexaDecimal extends BaseHexaDecimal {
+
+    public BinHexaDecimal(int size) {
+        super.myType = ValueType.HEX;
+        super.mySize = size;
+        super.hexaValue = new ArrayList<Byte>();
+    }
 
     private Byte[] myValue;
 

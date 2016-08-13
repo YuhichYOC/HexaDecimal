@@ -1,6 +1,14 @@
 package com.yoclabo.example;
 
+import java.util.ArrayList;
+
 public class RawStrHexaDecimal extends BaseHexaDecimal {
+
+    public RawStrHexaDecimal(int size) {
+        super.myType = ValueType.RAW_STR;
+        super.mySize = size;
+        super.hexaValue = new ArrayList<Byte>();
+    }
 
     private String myValue;
 

@@ -1,6 +1,14 @@
 package com.yoclabo.example;
 
+import java.util.ArrayList;
+
 public class LongHexaDecimal extends BaseHexaDecimal {
+
+    public LongHexaDecimal(int size) {
+        super.myType = ValueType.NUM_LONG;
+        super.mySize = size;
+        super.hexaValue = new ArrayList<Byte>();
+    }
 
     private Long myValue;
 
@@ -16,7 +24,7 @@ public class LongHexaDecimal extends BaseHexaDecimal {
 
     @Override
     public void ValueToHexa() {
-        String valueHex = myValue.toString();
+        String valueHex = Long.toString(myValue, 16);
         valueHex = PadPrefix(valueHex);
         for (int i = 0; i < valueHex.length() / 2; i++) {
             String oneChar = valueHex.substring(i * 2, i * 2 + 2);

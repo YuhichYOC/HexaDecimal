@@ -2,9 +2,16 @@ package com.yoclabo.example;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class LongDateBCDHexaDecimal extends BaseHexaDecimal {
+
+    public LongDateBCDHexaDecimal(int size) {
+        super.myType = ValueType.BCD_DATE_LONG;
+        super.mySize = size;
+        super.hexaValue = new ArrayList<Byte>();
+    }
 
     private Date myValue;
 
