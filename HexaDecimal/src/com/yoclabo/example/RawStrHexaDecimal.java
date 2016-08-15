@@ -7,7 +7,7 @@ public class RawStrHexaDecimal extends BaseHexaDecimal {
     public RawStrHexaDecimal(int size) {
         super.myType = ValueType.RAW_STR;
         super.mySize = size;
-        super.hexaValue = new ArrayList<Byte>();
+        super.hexaValue = new ArrayList<HexaByte>();
     }
 
     private String myValue;
@@ -29,7 +29,7 @@ public class RawStrHexaDecimal extends BaseHexaDecimal {
         }
         for (int i = 0; i < myValue.length(); i++) {
             String oneChar = myValue.substring(i * 2, i * 2 + 2);
-            hexaValue.add((byte) Integer.parseInt(oneChar, 16));
+            hexaValue.add(new HexaByte(oneChar));
         }
     }
 

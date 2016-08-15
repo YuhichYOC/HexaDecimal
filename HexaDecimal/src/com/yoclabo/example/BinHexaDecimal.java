@@ -8,7 +8,7 @@ public class BinHexaDecimal extends BaseHexaDecimal {
     public BinHexaDecimal(int size) {
         super.myType = ValueType.HEX;
         super.mySize = size;
-        super.hexaValue = new ArrayList<Byte>();
+        super.hexaValue = new ArrayList<HexaByte>();
     }
 
     private Byte[] myValue;
@@ -25,7 +25,7 @@ public class BinHexaDecimal extends BaseHexaDecimal {
 
     @Override
     public void ValueToHexa() {
-        super.hexaValue = Arrays.asList(myValue);
+        Arrays.asList(myValue).forEach(b -> super.hexaValue.add(new HexaByte(b)));
     }
 
     @Override

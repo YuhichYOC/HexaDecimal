@@ -7,7 +7,7 @@ public class IntHexaDecimal extends BaseHexaDecimal {
     public IntHexaDecimal(int size) {
         super.myType = ValueType.NUM_INT;
         super.mySize = size;
-        super.hexaValue = new ArrayList<Byte>();
+        super.hexaValue = new ArrayList<HexaByte>();
     }
 
     private Integer myValue;
@@ -28,7 +28,7 @@ public class IntHexaDecimal extends BaseHexaDecimal {
         valueHex = PadPrefix(valueHex);
         for (int i = 0; i < valueHex.length() / 2; i++) {
             String oneChar = valueHex.substring(i * 2, i * 2 + 2);
-            hexaValue.add((byte) Integer.parseInt(oneChar, 16));
+            hexaValue.add(new HexaByte(oneChar));
         }
     }
 

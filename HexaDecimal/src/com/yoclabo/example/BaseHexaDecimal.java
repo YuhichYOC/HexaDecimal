@@ -28,21 +28,21 @@ abstract public class BaseHexaDecimal implements IHexaDecimal {
         return mySize;
     }
 
-    protected List<Byte> hexaValue;
+    protected List<HexaByte> hexaValue;
 
     @Override
-    public void SetHexa(List<Byte> arg) {
+    public void SetHexa(List<HexaByte> arg) {
         hexaValue = arg;
     }
 
     @Override
-    public List<Byte> GetHexa() {
+    public List<HexaByte> GetHexa() {
         return hexaValue;
     }
 
     protected String ListConcat() {
         StringBuilder binHex = new StringBuilder();
-        hexaValue.forEach(b -> binHex.append(b.toString()));
+        hexaValue.forEach(b -> binHex.append(b.GetHexa()));
         return binHex.toString();
     }
 
@@ -74,7 +74,7 @@ abstract public class BaseHexaDecimal implements IHexaDecimal {
 
     protected String ListConcatUTF8() {
         StringBuilder binHex = new StringBuilder();
-        hexaValue.forEach(b -> binHex.append((char) b.intValue()));
+        hexaValue.forEach(b -> binHex.append(b.GetHexa()));
         return binHex.toString();
     }
 
@@ -89,7 +89,7 @@ abstract public class BaseHexaDecimal implements IHexaDecimal {
             }
             value = prefix.toString() + value;
         }
-        return value.substring(value.length() - (mySize * 2), mySize * 2);
+        return value.substring(value.length() - (mySize * 2), value.length());
     }
 
 }

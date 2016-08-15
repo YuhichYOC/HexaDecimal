@@ -16,9 +16,9 @@ public interface IHexaDecimal {
 
     public Object GetValue();
 
-    public void SetHexa(List<Byte> arg);
+    public void SetHexa(List<HexaByte> arg);
 
-    public List<Byte> GetHexa();
+    public List<HexaByte> GetHexa();
 
     public void ValueToHexa();
 

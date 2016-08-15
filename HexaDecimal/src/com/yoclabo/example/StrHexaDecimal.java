@@ -7,7 +7,7 @@ public class StrHexaDecimal extends BaseHexaDecimal {
     public StrHexaDecimal(int size) {
         super.myType = ValueType.STR;
         super.mySize = size;
-        super.hexaValue = new ArrayList<Byte>();
+        super.hexaValue = new ArrayList<HexaByte>();
     }
 
     private String myValue;
@@ -26,7 +26,7 @@ public class StrHexaDecimal extends BaseHexaDecimal {
     public void ValueToHexa() {
         for (int i = 0; i < myValue.length(); i++) {
             String oneChar = myValue.substring(i * 2, i * 2 + 2);
-            hexaValue.add((byte) Integer.parseInt(oneChar, 16));
+            hexaValue.add(new HexaByte(oneChar));
         }
     }
 

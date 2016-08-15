@@ -10,7 +10,7 @@ public class DateBCDHexaDecimal extends BaseHexaDecimal {
     public DateBCDHexaDecimal(int size) {
         super.myType = ValueType.BCD_DATE;
         super.mySize = size;
-        super.hexaValue = new ArrayList<Byte>();
+        super.hexaValue = new ArrayList<HexaByte>();
     }
 
     private Date myValue;
@@ -32,7 +32,7 @@ public class DateBCDHexaDecimal extends BaseHexaDecimal {
         valueHex = PadPrefix(valueHex);
         for (int i = 0; i < valueHex.length() / 2; i++) {
             String oneChar = valueHex.substring(i * 2, i * 2 + 2);
-            hexaValue.add((byte) Integer.parseInt(oneChar, 16));
+            hexaValue.add(new HexaByte(oneChar));
         }
     }
 
