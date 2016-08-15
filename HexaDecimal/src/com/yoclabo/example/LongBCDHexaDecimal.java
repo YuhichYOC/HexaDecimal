@@ -34,7 +34,7 @@ public class LongBCDHexaDecimal extends BaseHexaDecimal {
 
     @Override
     public void HexaToValue() {
-        myValue = Long.parseLong(ListConcat(), 16);
+        myValue = Long.parseLong(ListConcatBCD());
     }
 
 }

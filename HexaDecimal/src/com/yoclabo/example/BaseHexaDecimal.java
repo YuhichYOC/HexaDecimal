@@ -46,6 +46,12 @@ abstract public class BaseHexaDecimal implements IHexaDecimal {
         return binHex.toString();
     }
 
+    protected String ListConcatBCD() {
+        StringBuilder binHex = new StringBuilder();
+        hexaValue.forEach(b -> binHex.append(b.GetHexa()));
+        return binHex.toString();
+    }
+
     protected String ListConcatDateBCD() {
         int prefixSize = mySize;
         prefixSize -= 4;
@@ -56,7 +62,7 @@ abstract public class BaseHexaDecimal implements IHexaDecimal {
                 }
             }
         }
-        return ListConcat();
+        return ListConcatBCD();
     }
 
     protected String ListConcatLongDateBCD() {
@@ -69,7 +75,7 @@ abstract public class BaseHexaDecimal implements IHexaDecimal {
                 }
             }
         }
-        return ListConcat();
+        return ListConcatBCD();
     }
 
     protected String ListConcatUTF8() {

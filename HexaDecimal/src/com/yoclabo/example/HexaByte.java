@@ -77,10 +77,9 @@ public class HexaByte {
     }
 
     private void CastValueToRawStr() {
-        if (myValue < 10) {
-            hexaValue = "0" + Integer.toString((int) myValue, 16);
-        } else {
-            hexaValue = Integer.toString((int) myValue, 16);
+        hexaValue = Integer.toHexString(myValue & 0xff);
+        if (hexaValue.length() <= 1) {
+            hexaValue = "0" + hexaValue;
         }
     }
 
