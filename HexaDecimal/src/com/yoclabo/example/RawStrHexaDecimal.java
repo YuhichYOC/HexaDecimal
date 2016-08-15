@@ -27,7 +27,7 @@ public class RawStrHexaDecimal extends BaseHexaDecimal {
         if (myValue.startsWith("0x")) {
             myValue = myValue.substring(2, myValue.length());
         }
-        for (int i = 0; i < myValue.length(); i++) {
+        for (int i = 0; i < myValue.length() / 2; i++) {
             String oneChar = myValue.substring(i * 2, i * 2 + 2);
             hexaValue.add(new HexaByte(oneChar));
         }
