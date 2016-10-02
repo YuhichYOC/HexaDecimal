@@ -250,10 +250,10 @@ public class HexaDecimalTest {
         HexaByte ex2 = HexaByte.Value(232);         // 0xA8
         int ex1i = 3;
         int ex2i = 232;
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
-        Assert.assertEquals(ex1i, h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2i, h.GetHexa().get(1).toInt());
+        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).GetValue().GetValue());
+        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).GetValue().GetValue());
+        Assert.assertEquals(ex1i, h.GetHexa().get(0).GetValue().GetValue());
+        Assert.assertEquals(ex2i, h.GetHexa().get(1).GetValue().GetValue());
     }
 
     @Test
