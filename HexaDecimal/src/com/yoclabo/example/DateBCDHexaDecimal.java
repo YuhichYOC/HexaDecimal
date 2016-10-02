@@ -28,11 +28,10 @@ public class DateBCDHexaDecimal extends BaseHexaDecimal {
     @Override
     public void ValueToHexa() {
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
-        String valueHex = f.format(myValue);
-        valueHex = PadPrefix(valueHex);
-        for (int i = 0; i < valueHex.length() / 2; i++) {
-            String oneChar = valueHex.substring(i * 2, i * 2 + 2);
-            hexaValue.add(new HexaByte(oneChar));
+        String parseValue = f.format(myValue);
+        parseValue = PadPrefix(parseValue);
+        for (int i = 0; i < parseValue.length() / 2; i++) {
+            hexaValue.add(new HexaByte(parseValue.substring(i * 2, i * 2 + 2)));
         }
     }
 

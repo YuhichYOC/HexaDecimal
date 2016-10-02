@@ -41,61 +41,48 @@ abstract public class BaseHexaDecimal implements IHexaDecimal {
     }
 
     protected String ListConcat() {
-        StringBuilder binHex = new StringBuilder();
-        hexaValue.forEach(b -> binHex.append(b.GetHexa()));
-        return binHex.toString();
+        StringBuilder retVal = new StringBuilder();
+        hexaValue.forEach(b -> retVal.append(b.GetHexa()));
+        return retVal.toString();
     }
 
     protected String ListConcatBCD() {
-        StringBuilder binHex = new StringBuilder();
-        hexaValue.forEach(b -> binHex.append(b.GetHexa()));
-        return binHex.toString();
+        StringBuilder retVal = new StringBuilder();
+        hexaValue.forEach(b -> retVal.append(b.GetHexa()));
+        return retVal.toString();
     }
 
     protected String ListConcatDateBCD() {
-        int prefixSize = mySize;
-        prefixSize -= 4;
-        if (prefixSize > 0) {
-            for (int i = prefixSize; i >= 0; i--) {
-                if (hexaValue.get(i).equals(0)) {
-                    hexaValue.remove(i);
-                }
-            }
+        StringBuilder retVal = new StringBuilder();
+        for (int i = hexaValue.size() - 4; i < hexaValue.size(); i++) {
+            retVal.append(hexaValue.get(i).GetHexa());
         }
-        return ListConcatBCD();
+        return retVal.toString();
     }
 
     protected String ListConcatLongDateBCD() {
-        int prefixSize = mySize;
-        prefixSize -= 7;
-        if (prefixSize > 0) {
-            for (int i = prefixSize; i >= 0; i--) {
-                if (hexaValue.get(i).equals(0)) {
-                    hexaValue.remove(i);
-                }
-            }
+        StringBuilder retVal = new StringBuilder();
+        for (int i = hexaValue.size() - 7; i < hexaValue.size(); i++) {
+            retVal.append(hexaValue.get(i).GetHexa());
         }
-        return ListConcatBCD();
+        return retVal.toString();
     }
 
     protected String ListConcatUTF8() {
-        StringBuilder binHex = new StringBuilder();
-        hexaValue.forEach(b -> binHex.append(b.GetHexa()));
-        return binHex.toString();
+        StringBuilder retVal = new StringBuilder();
+        hexaValue.forEach(b -> retVal.append(b.GetHexa()));
+        return retVal.toString();
     }
 
     protected String PadPrefix(String value) {
         if (value.length() % 2 != 0) {
             value = "0" + value;
         }
-        if (value.length() < mySize * 2) {
-            StringBuilder prefix = new StringBuilder();
-            for (int i = 0; i < mySize * 2; i++) {
-                prefix.append("0");
-            }
-            value = prefix.toString() + value;
+        int iLoopCount = mySize - value.length() / 2;
+        for (int i = 0; i < iLoopCount; i++) {
+            value = "00" + value;
         }
-        return value.substring(value.length() - (mySize * 2), value.length());
+        return value;
     }
 
 }

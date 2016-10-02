@@ -27,12 +27,9 @@ public class IntHexaDecimal extends BaseHexaDecimal {
     public void ValueToHexa() {
         hexaValue.clear();
 
-        int mod = 0;
         int parseValue = myValue;
         while (parseValue != 0) {
-            mod = parseValue % 256;
-            hexaValue.add(new HexaByte(mod));
-
+            hexaValue.add(new HexaByte(parseValue % 256));
             parseValue = parseValue / 256;
         }
 
@@ -47,11 +44,9 @@ public class IntHexaDecimal extends BaseHexaDecimal {
     public void HexaToValue() {
         myValue = 0;
 
-        int iLoopCount = hexaValue.size();
-        for (int i = iLoopCount; i > 0; i--) {
+        for (int i = hexaValue.size(); i > 0; i--) {
             int radix = 1;
-            int jLoopCount = hexaValue.size() - i;
-            for (int j = 0; j < jLoopCount; j++) {
+            for (int j = 0; j < hexaValue.size() - i; j++) {
                 radix *= 256;
             }
             myValue += hexaValue.get(i - 1).GetValue().GetValue() * radix;
