@@ -1,14 +1,14 @@
 package com.yoclabo.example;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class IntHexaDecimal extends BaseHexaDecimal {
 
     public IntHexaDecimal(int size) {
-        super.myType = ValueType.NUM_INT;
         super.mySize = size;
-        super.hexaValue = new ArrayList<HexaByte>();
+    }
+
+    @Override
+    public ValueType GetType() {
+        return ValueType.NUM_INT;
     }
 
     private Integer myValue;
@@ -25,31 +25,35 @@ public class IntHexaDecimal extends BaseHexaDecimal {
 
     @Override
     public void ValueToHexa() {
-        hexaValue.clear();
-
-        int parseValue = myValue;
-        while (parseValue != 0) {
-            hexaValue.add(new HexaByte(parseValue % 256));
-            parseValue = parseValue / 256;
+        Uint8[] reverse = new Uint8[mySize];
+        int value = myValue;
+        int i = 0;
+        do {
+            int mod = value % 256;
+            reverse[i] = Uint8.Value(mod);
+            value /= 256;
+            i++;
+        } while (value != 0);
+        if (i < mySize) {
+            for (int j = i; j < mySize; j++) {
+                reverse[j] = Uint8.Value(0);
+            }
         }
-
-        int iLoopCount = mySize - hexaValue.size();
-        for (int i = 0; i < iLoopCount; i++) {
-            hexaValue.add(new HexaByte(0));
+        hexaValue = new Uint8[mySize];
+        for (int k = 0; k < mySize; k++) {
+            hexaValue[k] = reverse[(mySize - 1) - k];
         }
-        Collections.reverse(hexaValue);
     }
 
     @Override
     public void HexaToValue() {
         myValue = 0;
-
-        for (int i = hexaValue.size(); i > 0; i--) {
+        for (int i = mySize; i > 0; i--) {
             int radix = 1;
-            for (int j = 0; j < hexaValue.size() - i; j++) {
+            for (int j = 0; j < mySize - i; j++) {
                 radix *= 256;
             }
-            myValue += hexaValue.get(i - 1).GetValue().GetValue() * radix;
+            myValue += hexaValue[i - 1].GetValue() * radix;
         }
     }
 

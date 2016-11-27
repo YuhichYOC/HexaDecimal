@@ -1,8 +1,6 @@
 package com.yoclabo.example;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 import org.junit.Assert;
@@ -16,9 +14,8 @@ public class HexaDecimalTest {
         BCDHexaDecimal h = new BCDHexaDecimal(1);
         h.SetValue((Integer) 20);
         h.ValueToHexa();
-        HexaByte ex = HexaByte.Value(32);           // 0x20 = 32 ( in integer
-                                                    // value )
-        Assert.assertEquals(ex.toInt(), h.GetHexa().get(0).toInt());
+        int ex = 32;           // 0x20 = 32 ( in integer value )
+        Assert.assertEquals(ex, h.GetHexa()[0].GetValue());
     }
 
     @Test
@@ -27,11 +24,10 @@ public class HexaDecimalTest {
         BCDHexaDecimal h = new BCDHexaDecimal(2);
         h.SetValue((Integer) 20);
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(0);           // 0x00
-        HexaByte ex2 = HexaByte.Value(32);          // 0x20 = 32 ( in integer
-                                                    // value )
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
+        int ex1 = 0;           // 0x00
+        int ex2 = 32;          // 0x20 = 32 ( in integer value )
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
     }
 
     @Test
@@ -40,10 +36,10 @@ public class HexaDecimalTest {
         BCDHexaDecimal h = new BCDHexaDecimal(2);
         h.SetValue(100);
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(1);           // 0x01 = 1
-        HexaByte ex2 = HexaByte.Value(0);           // 0x00
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
+        int ex1 = 1;           // 0x01 = 1
+        int ex2 = 0;           // 0x00
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
     }
 
     @Test
@@ -52,10 +48,10 @@ public class HexaDecimalTest {
         BCDHexaDecimal h = new BCDHexaDecimal(2);
         h.SetValue((Integer) 1000);
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(16);          // 0x10 = 16
-        HexaByte ex2 = HexaByte.Value(0);           // 0x00
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
+        int ex1 = 16;          // 0x10 = 16
+        int ex2 = 0;           // 0x00
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
     }
 
     @Test
@@ -64,20 +60,20 @@ public class HexaDecimalTest {
         BCDHexaDecimal h = new BCDHexaDecimal(3);
         h.SetValue(1000);
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(0);           // 0x00
-        HexaByte ex2 = HexaByte.Value(16);          // 0x10 = 16
-        HexaByte ex3 = HexaByte.Value(0);           // 0x00
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
-        Assert.assertEquals(ex3.toInt(), h.GetHexa().get(2).toInt());
+        int ex1 = 0;           // 0x00
+        int ex2 = 16;          // 0x10 = 16
+        int ex3 = 0;           // 0x00
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
+        Assert.assertEquals(ex3, h.GetHexa()[2].GetValue());
     }
 
     @Test
     public void BCDHexaDecimalParseHexa01() {
         // 0x20 = 20 ( BCD )
         BCDHexaDecimal h = new BCDHexaDecimal(1);
-        ArrayList<HexaByte> lb = new ArrayList<HexaByte>();
-        lb.add(HexaByte.Value(32));                 // 0x20 = 32
+        Uint8[] lb = new Uint8[1];
+        lb[0] = Uint8.Value(32);                 // 0x20 = 32
         h.SetHexa(lb);
         h.HexaToValue();
         int ex = 20;
@@ -88,9 +84,9 @@ public class HexaDecimalTest {
     public void BCDHexaDecimalParseHexa02() {
         // 0x00 & 0x20 = 20 ( BCD )
         BCDHexaDecimal h = new BCDHexaDecimal(2);
-        ArrayList<HexaByte> lb = new ArrayList<HexaByte>();
-        lb.add(HexaByte.Value(0));                  // 0x00
-        lb.add(HexaByte.Value(32));                 // 0x20
+        Uint8[] lb = new Uint8[2];
+        lb[0] = Uint8.Value(0);                  // 0x00
+        lb[1] = Uint8.Value(32);                 // 0x20
         h.SetHexa(lb);
         h.HexaToValue();
         int ex = 20;
@@ -101,9 +97,9 @@ public class HexaDecimalTest {
     public void BCDHexaDecimalParseHexa03() {
         // 0x01 & 0x00 = 100 ( BCD )
         BCDHexaDecimal h = new BCDHexaDecimal(2);
-        ArrayList<HexaByte> lb = new ArrayList<HexaByte>();
-        lb.add(HexaByte.Value(1));                  // 0x01
-        lb.add(HexaByte.Value(0));                  // 0x00
+        Uint8[] lb = new Uint8[2];
+        lb[0] = Uint8.Value(1);                  // 0x01
+        lb[1] = Uint8.Value(0);                  // 0x00
         h.SetHexa(lb);
         h.HexaToValue();
         int ex = 100;
@@ -114,9 +110,9 @@ public class HexaDecimalTest {
     public void BCDHexaDecimalParseHexa04() {
         // 0x10 & 0x00 = 1000 ( BCD )
         BCDHexaDecimal h = new BCDHexaDecimal(2);
-        ArrayList<HexaByte> lb = new ArrayList<HexaByte>();
-        lb.add(HexaByte.Value(16));                 // 0x10 = 16
-        lb.add(HexaByte.Value(0));                  // 0x00
+        Uint8[] lb = new Uint8[2];
+        lb[0] = Uint8.Value(16);                 // 0x10 = 16
+        lb[1] = Uint8.Value(0);                  // 0x00
         h.SetHexa(lb);
         h.HexaToValue();
         int ex = 1000;
@@ -127,10 +123,10 @@ public class HexaDecimalTest {
     public void BCDHexaDecimalParseHexa05() {
         // 0x00 & 0x10 & 0x00 = 1000 ( BCD )
         BCDHexaDecimal h = new BCDHexaDecimal(3);
-        ArrayList<HexaByte> lb = new ArrayList<HexaByte>();
-        lb.add(HexaByte.Value(0));                  // 0x00
-        lb.add(HexaByte.Value(16));                 // 0x10 = 16
-        lb.add(HexaByte.Value(0));                  // 0x00
+        Uint8[] lb = new Uint8[3];
+        lb[0] = Uint8.Value(0);                  // 0x00
+        lb[1] = Uint8.Value(16);                 // 0x10 = 16
+        lb[2] = Uint8.Value(0);                  // 0x00
         h.SetHexa(lb);
         h.HexaToValue();
         int ex = 1000;
@@ -143,14 +139,14 @@ public class HexaDecimalTest {
         DateBCDHexaDecimal h = new DateBCDHexaDecimal(4);
         h.SetValue(new SimpleDateFormat("yyyyMMdd").parse("20160623"));
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(32);          // 0x20
-        HexaByte ex2 = HexaByte.Value(22);          // 0x16
-        HexaByte ex3 = HexaByte.Value(6);           // 0x06
-        HexaByte ex4 = HexaByte.Value(35);          // 0x23
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
-        Assert.assertEquals(ex3.toInt(), h.GetHexa().get(2).toInt());
-        Assert.assertEquals(ex4.toInt(), h.GetHexa().get(3).toInt());
+        int ex1 = 32;          // 0x20
+        int ex2 = 22;          // 0x16
+        int ex3 = 6;           // 0x06
+        int ex4 = 35;          // 0x23
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
+        Assert.assertEquals(ex3, h.GetHexa()[2].GetValue());
+        Assert.assertEquals(ex4, h.GetHexa()[3].GetValue());
     }
 
     @Test
@@ -160,27 +156,27 @@ public class HexaDecimalTest {
         DateBCDHexaDecimal h = new DateBCDHexaDecimal(5);
         h.SetValue(new SimpleDateFormat("yyyyMMdd").parse("20160623"));
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(0);           // 0x00
-        HexaByte ex2 = HexaByte.Value(32);          // 0x20
-        HexaByte ex3 = HexaByte.Value(22);          // 0x16
-        HexaByte ex4 = HexaByte.Value(6);           // 0x06
-        HexaByte ex5 = HexaByte.Value(35);          // 0x23
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
-        Assert.assertEquals(ex3.toInt(), h.GetHexa().get(2).toInt());
-        Assert.assertEquals(ex4.toInt(), h.GetHexa().get(3).toInt());
-        Assert.assertEquals(ex5.toInt(), h.GetHexa().get(4).toInt());
+        int ex1 = 0;           // 0x00
+        int ex2 = 32;          // 0x20
+        int ex3 = 22;          // 0x16
+        int ex4 = 6;           // 0x06
+        int ex5 = 35;          // 0x23
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
+        Assert.assertEquals(ex3, h.GetHexa()[2].GetValue());
+        Assert.assertEquals(ex4, h.GetHexa()[3].GetValue());
+        Assert.assertEquals(ex5, h.GetHexa()[4].GetValue());
     }
 
     @Test
     public void DateBCDHexaDecimalParseHexa01() throws Exception {
         // 0x20 & 0x16 & 0x06 & 0x23 = 20160623 ( BCD ) = 2016-06-23 ( Date )
         DateBCDHexaDecimal h = new DateBCDHexaDecimal(4);
-        ArrayList<HexaByte> lb = new ArrayList<HexaByte>();
-        lb.add(HexaByte.Value(32));                 // 0x20
-        lb.add(HexaByte.Value(22));                 // 0x16
-        lb.add(HexaByte.Value(6));                  // 0x06
-        lb.add(HexaByte.Value(35));                 // 0x23
+        Uint8[] lb = new Uint8[4];
+        lb[0] = Uint8.Value(32);                 // 0x20
+        lb[1] = Uint8.Value(22);                 // 0x16
+        lb[2] = Uint8.Value(6);                  // 0x06
+        lb[3] = Uint8.Value(35);                 // 0x23
         h.SetHexa(lb);
         h.HexaToValue();
         Date ex = new SimpleDateFormat("yyyyMMdd").parse("20160623");
@@ -192,12 +188,12 @@ public class HexaDecimalTest {
         // 0x00 & 0x20 & 0x16 & 0x06 & 0x23 = 20160623 ( BCD ) = 2016-06-23 (
         // Date )
         DateBCDHexaDecimal h = new DateBCDHexaDecimal(5);
-        ArrayList<HexaByte> lb = new ArrayList<HexaByte>();
-        lb.add(HexaByte.Value(0));                  // 0x00
-        lb.add(HexaByte.Value(32));                 // 0x20
-        lb.add(HexaByte.Value(22));                 // 0x16
-        lb.add(HexaByte.Value(6));                  // 0x06
-        lb.add(HexaByte.Value(35));                 // 0x23
+        Uint8[] lb = new Uint8[5];
+        lb[0] = Uint8.Value(0);                  // 0x00
+        lb[1] = Uint8.Value(32);                 // 0x20
+        lb[2] = Uint8.Value(22);                 // 0x16
+        lb[3] = Uint8.Value(6);                  // 0x06
+        lb[4] = Uint8.Value(35);                 // 0x23
         h.SetHexa(lb);
         h.HexaToValue();
         Date ex = new SimpleDateFormat("yyyyMMdd").parse("20160623");
@@ -210,8 +206,8 @@ public class HexaDecimalTest {
         IntHexaDecimal h = new IntHexaDecimal(1);
         h.SetValue((Integer) 100);
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(100);         // 0x64
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
+        int ex1 = 100;         // 0x64
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
     }
 
     @Test
@@ -220,10 +216,10 @@ public class HexaDecimalTest {
         IntHexaDecimal h = new IntHexaDecimal(2);
         h.SetValue((Integer) 256);
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(1);           // 0x01
-        HexaByte ex2 = HexaByte.Value(0);           // 0x00
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
+        int ex1 = 1;           // 0x01
+        int ex2 = 0;           // 0x00
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
     }
 
     @Test
@@ -232,12 +228,12 @@ public class HexaDecimalTest {
         IntHexaDecimal h = new IntHexaDecimal(3);
         h.SetValue((Integer) 256);
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(0);           // 0x00
-        HexaByte ex2 = HexaByte.Value(1);           // 0x01
-        HexaByte ex3 = HexaByte.Value(0);           // 0x00
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
-        Assert.assertEquals(ex3.toInt(), h.GetHexa().get(2).toInt());
+        int ex1 = 0;           // 0x00
+        int ex2 = 1;           // 0x01
+        int ex3 = 0;           // 0x00
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
+        Assert.assertEquals(ex3, h.GetHexa()[2].GetValue());
     }
 
     @Test
@@ -246,14 +242,14 @@ public class HexaDecimalTest {
         IntHexaDecimal h = new IntHexaDecimal(2);
         h.SetValue(1000);
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(3);           // 0x03
-        HexaByte ex2 = HexaByte.Value(232);         // 0xA8
+        int ex1 = 3;           // 0x03
+        int ex2 = 232;         // 0xA8
         int ex1i = 3;
         int ex2i = 232;
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).GetValue().GetValue());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).GetValue().GetValue());
-        Assert.assertEquals(ex1i, h.GetHexa().get(0).GetValue().GetValue());
-        Assert.assertEquals(ex2i, h.GetHexa().get(1).GetValue().GetValue());
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
+        Assert.assertEquals(ex1i, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2i, h.GetHexa()[1].GetValue());
     }
 
     @Test
@@ -262,26 +258,26 @@ public class HexaDecimalTest {
         IntHexaDecimal h = new IntHexaDecimal(3);
         h.SetValue((Integer) 1000);
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(0);           // 0x00
-        HexaByte ex2 = HexaByte.Value(3);           // 0x03
-        HexaByte ex3 = HexaByte.Value(232);         // 0xA8
+        int ex1 = 0;           // 0x00
+        int ex2 = 3;           // 0x03
+        int ex3 = 232;         // 0xA8
         int ex1i = 0;
         int ex2i = 3;
         int ex3i = 232;
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
-        Assert.assertEquals(ex3.toInt(), h.GetHexa().get(2).toInt());
-        Assert.assertEquals(ex1i, h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2i, h.GetHexa().get(1).toInt());
-        Assert.assertEquals(ex3i, h.GetHexa().get(2).toInt());
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
+        Assert.assertEquals(ex3, h.GetHexa()[2].GetValue());
+        Assert.assertEquals(ex1i, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2i, h.GetHexa()[1].GetValue());
+        Assert.assertEquals(ex3i, h.GetHexa()[2].GetValue());
     }
 
     @Test
     public void IntHexaDecimalParseHexa01() {
         // 0x64 = 100 ( integer )
         IntHexaDecimal h = new IntHexaDecimal(1);
-        ArrayList<HexaByte> lb = new ArrayList<HexaByte>();
-        lb.add(HexaByte.Value(100));                // 0x64
+        Uint8[] lb = new Uint8[1];
+        lb[0] = Uint8.Value(100);                // 0x64
         h.SetHexa(lb);
         h.HexaToValue();
         int ex = 100;
@@ -292,9 +288,9 @@ public class HexaDecimalTest {
     public void IntHexaDecimalParseHexa02() {
         // 0x01 & 0x00 = 256 ( integer )
         IntHexaDecimal h = new IntHexaDecimal(2);
-        ArrayList<HexaByte> lb = new ArrayList<HexaByte>();
-        lb.add(HexaByte.Value(1));                  // 0x01
-        lb.add(HexaByte.Value(0));                  // 0x00
+        Uint8[] lb = new Uint8[2];
+        lb[0] = Uint8.Value(1);                  // 0x01
+        lb[1] = Uint8.Value(0);                  // 0x00
         h.SetHexa(lb);
         h.HexaToValue();
         int ex = 256;
@@ -305,10 +301,10 @@ public class HexaDecimalTest {
     public void IntHexaDecimalParseHexa03() {
         // 0x00 & 0x01 & 0x00 = 256 ( integer )
         IntHexaDecimal h = new IntHexaDecimal(3);
-        ArrayList<HexaByte> lb = new ArrayList<HexaByte>();
-        lb.add(HexaByte.Value(0));                  // 0x00
-        lb.add(HexaByte.Value(1));                  // 0x01
-        lb.add(HexaByte.Value(0));                  // 0x00
+        Uint8[] lb = new Uint8[3];
+        lb[0] = Uint8.Value(0);                  // 0x00
+        lb[1] = Uint8.Value(1);                  // 0x01
+        lb[2] = Uint8.Value(0);                  // 0x00
         h.SetHexa(lb);
         h.HexaToValue();
         int ex = 256;
@@ -319,9 +315,9 @@ public class HexaDecimalTest {
     public void IntHexaDecimalParseHexa04() {
         // 0x03 & 0xA8 = 1000 ( integer )
         IntHexaDecimal h = new IntHexaDecimal(2);
-        ArrayList<HexaByte> lb = new ArrayList<HexaByte>();
-        lb.add(HexaByte.Value(3));                  // 0x03
-        lb.add(HexaByte.Value(232));                // 0xA8
+        Uint8[] lb = new Uint8[2];
+        lb[0] = Uint8.Value(3);                  // 0x03
+        lb[1] = Uint8.Value(232);                // 0xA8
         h.SetHexa(lb);
         h.HexaToValue();
         int ex = 1000;
@@ -332,10 +328,10 @@ public class HexaDecimalTest {
     public void IntHexaDecimalParseHexa05() {
         // 0x00 & 0x03 & 0xA8 = 1000 ( integer )
         IntHexaDecimal h = new IntHexaDecimal(3);
-        ArrayList<HexaByte> lb = new ArrayList<HexaByte>();
-        lb.add(HexaByte.Value(0));                  // 0x00
-        lb.add(HexaByte.Value(3));                  // 0x03
-        lb.add(HexaByte.Value(232));                // 0xA8
+        Uint8[] lb = new Uint8[3];
+        lb[0] = Uint8.Value(0);                  // 0x00
+        lb[1] = Uint8.Value(3);                  // 0x03
+        lb[2] = Uint8.Value(232);                // 0xA8
         h.SetHexa(lb);
         h.HexaToValue();
         int ex = 1000;
@@ -345,69 +341,75 @@ public class HexaDecimalTest {
     @Test
     public void LongBCDHexaDecimalValueToHexa01() {
         // 20160623 ( long BCD ) = 0x20 & 0x16 & 0x06 & 0x23
-        LongBCDHexaDecimal h = new LongBCDHexaDecimal(4);
-        h.SetValue(new Long(20160623));
+        // LongBCDHexaDecimal h = new LongBCDHexaDecimal(4);
+        BCDHexaDecimal h = new BCDHexaDecimal(4);
+        h.SetValue(20160623);
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(32);          // 0x20
-        HexaByte ex2 = HexaByte.Value(22);          // 0x16
-        HexaByte ex3 = HexaByte.Value(6);           // 0x06
-        HexaByte ex4 = HexaByte.Value(35);          // 0x23
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
-        Assert.assertEquals(ex3.toInt(), h.GetHexa().get(2).toInt());
-        Assert.assertEquals(ex4.toInt(), h.GetHexa().get(3).toInt());
+        int ex1 = 32;          // 0x20
+        int ex2 = 22;          // 0x16
+        int ex3 = 6;           // 0x06
+        int ex4 = 35;          // 0x23
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
+        Assert.assertEquals(ex3, h.GetHexa()[2].GetValue());
+        Assert.assertEquals(ex4, h.GetHexa()[3].GetValue());
     }
 
     @Test
     public void LongBCDHexaDecimalValueToHexa02() {
         // 20160623 ( long BCD ) = 0x00 & 0x00 & 0x20 & 0x16 & 0x06 & 0x23
-        LongBCDHexaDecimal h = new LongBCDHexaDecimal(6);
-        h.SetValue(new Long(20160623));
+        // LongBCDHexaDecimal h = new LongBCDHexaDecimal(6);
+        BCDHexaDecimal h = new BCDHexaDecimal(6);
+        h.SetValue(20160623);
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(0);           // 0x00
-        HexaByte ex2 = HexaByte.Value(0);           // 0x00
-        HexaByte ex3 = HexaByte.Value(32);          // 0x20
-        HexaByte ex4 = HexaByte.Value(22);          // 0x16
-        HexaByte ex5 = HexaByte.Value(6);           // 0x06
-        HexaByte ex6 = HexaByte.Value(35);          // 0x23
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
-        Assert.assertEquals(ex3.toInt(), h.GetHexa().get(2).toInt());
-        Assert.assertEquals(ex4.toInt(), h.GetHexa().get(3).toInt());
-        Assert.assertEquals(ex5.toInt(), h.GetHexa().get(4).toInt());
-        Assert.assertEquals(ex6.toInt(), h.GetHexa().get(5).toInt());
+        int ex1 = 0;           // 0x00
+        int ex2 = 0;           // 0x00
+        int ex3 = 32;          // 0x20
+        int ex4 = 22;          // 0x16
+        int ex5 = 6;           // 0x06
+        int ex6 = 35;          // 0x23
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
+        Assert.assertEquals(ex3, h.GetHexa()[2].GetValue());
+        Assert.assertEquals(ex4, h.GetHexa()[3].GetValue());
+        Assert.assertEquals(ex5, h.GetHexa()[4].GetValue());
+        Assert.assertEquals(ex6, h.GetHexa()[5].GetValue());
     }
 
     @Test
     public void LongBCDHexaDecimalParseHexa01() {
         // 0x20 & 0x16 & 0x06 & 0x23 = 20160623 ( long BCD )
-        LongBCDHexaDecimal h = new LongBCDHexaDecimal(4);
-        ArrayList<HexaByte> lb = new ArrayList<HexaByte>();
-        lb.add(HexaByte.Value(32));                 // 0x20
-        lb.add(HexaByte.Value(22));                 // 0x16
-        lb.add(HexaByte.Value(6));                  // 0x06
-        lb.add(HexaByte.Value(35));                 // 0x23
+        // LongBCDHexaDecimal h = new LongBCDHexaDecimal(4);
+        BCDHexaDecimal h = new BCDHexaDecimal(4);
+        Uint8[] lb = new Uint8[4];
+        lb[0] = Uint8.Value(32);                 // 0x20
+        lb[1] = Uint8.Value(22);                 // 0x16
+        lb[2] = Uint8.Value(6);                  // 0x06
+        lb[3] = Uint8.Value(35);                 // 0x23
         h.SetHexa(lb);
         h.HexaToValue();
-        long ex = 20160623;
-        Assert.assertEquals(ex, (long) h.GetValue());
+        // long ex = 20160623;
+        int ex = 20160623;
+        Assert.assertEquals(ex, h.GetValue());
     }
 
     @Test
     public void LongBCDHexaDecimalParseHexa02() {
         // 0x00 & 0x00 & 0x20 & 0x16 & 0x06 & 0x23 = 20160623 ( long BCD )
-        LongBCDHexaDecimal h = new LongBCDHexaDecimal(6);
-        ArrayList<HexaByte> lb = new ArrayList<HexaByte>();
-        lb.add(HexaByte.Value(0));                  // 0x00
-        lb.add(HexaByte.Value(0));                  // 0x00
-        lb.add(HexaByte.Value(32));                 // 0x20
-        lb.add(HexaByte.Value(22));                 // 0x16
-        lb.add(HexaByte.Value(6));                  // 0x06
-        lb.add(HexaByte.Value(35));                 // 0x23
+        // LongBCDHexaDecimal h = new LongBCDHexaDecimal(6);
+        BCDHexaDecimal h = new BCDHexaDecimal(6);
+        Uint8[] lb = new Uint8[6];
+        lb[0] = Uint8.Value(0);                  // 0x00
+        lb[1] = Uint8.Value(0);                  // 0x00
+        lb[2] = Uint8.Value(32);                 // 0x20
+        lb[3] = Uint8.Value(22);                 // 0x16
+        lb[4] = Uint8.Value(6);                  // 0x06
+        lb[5] = Uint8.Value(35);                 // 0x23
         h.SetHexa(lb);
         h.HexaToValue();
-        long ex = 20160623;
-        Assert.assertEquals(ex, (long) h.GetValue());
+        // long ex = 20160623;
+        int ex = 20160623;
+        Assert.assertEquals(ex, h.GetValue());
     }
 
     @Test
@@ -415,20 +417,20 @@ public class HexaDecimalTest {
         LongDateBCDHexaDecimal h = new LongDateBCDHexaDecimal(7);
         h.SetValue(new SimpleDateFormat("yyyyMMddHHmmss").parse("20160623153212"));
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(32);
-        HexaByte ex2 = HexaByte.Value(22);
-        HexaByte ex3 = HexaByte.Value(6);
-        HexaByte ex4 = HexaByte.Value(35);
-        HexaByte ex5 = HexaByte.Value(21);
-        HexaByte ex6 = HexaByte.Value(50);
-        HexaByte ex7 = HexaByte.Value(18);
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
-        Assert.assertEquals(ex3.toInt(), h.GetHexa().get(2).toInt());
-        Assert.assertEquals(ex4.toInt(), h.GetHexa().get(3).toInt());
-        Assert.assertEquals(ex5.toInt(), h.GetHexa().get(4).toInt());
-        Assert.assertEquals(ex6.toInt(), h.GetHexa().get(5).toInt());
-        Assert.assertEquals(ex7.toInt(), h.GetHexa().get(6).toInt());
+        int ex1 = 32;
+        int ex2 = 22;
+        int ex3 = 6;
+        int ex4 = 35;
+        int ex5 = 21;
+        int ex6 = 50;
+        int ex7 = 18;
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
+        Assert.assertEquals(ex3, h.GetHexa()[2].GetValue());
+        Assert.assertEquals(ex4, h.GetHexa()[3].GetValue());
+        Assert.assertEquals(ex5, h.GetHexa()[4].GetValue());
+        Assert.assertEquals(ex6, h.GetHexa()[5].GetValue());
+        Assert.assertEquals(ex7, h.GetHexa()[6].GetValue());
     }
 
     @Test
@@ -436,29 +438,36 @@ public class HexaDecimalTest {
         LongDateBCDHexaDecimal h = new LongDateBCDHexaDecimal(8);
         h.SetValue(new SimpleDateFormat("yyyyMMddHHmmss").parse("20160623153212"));
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(0);
-        HexaByte ex2 = HexaByte.Value(32);
-        HexaByte ex3 = HexaByte.Value(22);
-        HexaByte ex4 = HexaByte.Value(6);
-        HexaByte ex5 = HexaByte.Value(35);
-        HexaByte ex6 = HexaByte.Value(21);
-        HexaByte ex7 = HexaByte.Value(50);
-        HexaByte ex8 = HexaByte.Value(18);
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
-        Assert.assertEquals(ex3.toInt(), h.GetHexa().get(2).toInt());
-        Assert.assertEquals(ex4.toInt(), h.GetHexa().get(3).toInt());
-        Assert.assertEquals(ex5.toInt(), h.GetHexa().get(4).toInt());
-        Assert.assertEquals(ex6.toInt(), h.GetHexa().get(5).toInt());
-        Assert.assertEquals(ex7.toInt(), h.GetHexa().get(6).toInt());
-        Assert.assertEquals(ex8.toInt(), h.GetHexa().get(7).toInt());
+        int ex1 = 0;
+        int ex2 = 32;
+        int ex3 = 22;
+        int ex4 = 6;
+        int ex5 = 35;
+        int ex6 = 21;
+        int ex7 = 50;
+        int ex8 = 18;
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
+        Assert.assertEquals(ex3, h.GetHexa()[2].GetValue());
+        Assert.assertEquals(ex4, h.GetHexa()[3].GetValue());
+        Assert.assertEquals(ex5, h.GetHexa()[4].GetValue());
+        Assert.assertEquals(ex6, h.GetHexa()[5].GetValue());
+        Assert.assertEquals(ex7, h.GetHexa()[6].GetValue());
+        Assert.assertEquals(ex8, h.GetHexa()[7].GetValue());
     }
 
     @Test
     public void LongDateBCDHexaDecimalParseHexa01() throws Exception {
-        LongDateBCDHexaDecimal h = new LongDateBCDHexaDecimal(0);
-        h.SetHexa(new ArrayList<HexaByte>(Arrays.asList(HexaByte.Value(32), HexaByte.Value(22), HexaByte.Value(6),
-                HexaByte.Value(35), HexaByte.Value(21), HexaByte.Value(50), HexaByte.Value(18))));
+        LongDateBCDHexaDecimal h = new LongDateBCDHexaDecimal(7);
+        Uint8[] lb = new Uint8[7];
+        lb[0] = Uint8.Value(32);
+        lb[1] = Uint8.Value(22);
+        lb[2] = Uint8.Value(6);
+        lb[3] = Uint8.Value(35);
+        lb[4] = Uint8.Value(21);
+        lb[5] = Uint8.Value(50);
+        lb[6] = Uint8.Value(18);
+        h.SetHexa(lb);
         h.HexaToValue();
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMddHHmmss");
         Assert.assertEquals(f.parse("20160623153212"), h.GetValue());
@@ -467,8 +476,16 @@ public class HexaDecimalTest {
     @Test
     public void LongDateBCDHexaDecimalParseHexa02() throws Exception {
         LongDateBCDHexaDecimal h = new LongDateBCDHexaDecimal(8);
-        h.SetHexa(new ArrayList<HexaByte>(Arrays.asList(HexaByte.Value(0), HexaByte.Value(32), HexaByte.Value(22),
-                HexaByte.Value(6), HexaByte.Value(35), HexaByte.Value(21), HexaByte.Value(50), HexaByte.Value(18))));
+        Uint8[] lb = new Uint8[8];
+        lb[0] = Uint8.Value(0);
+        lb[1] = Uint8.Value(32);
+        lb[2] = Uint8.Value(22);
+        lb[3] = Uint8.Value(6);
+        lb[4] = Uint8.Value(35);
+        lb[5] = Uint8.Value(21);
+        lb[6] = Uint8.Value(50);
+        lb[7] = Uint8.Value(18);
+        h.SetHexa(lb);
         h.HexaToValue();
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMddHHmmss");
         Assert.assertEquals(f.parse("20160623153212"), h.GetValue());
@@ -476,59 +493,76 @@ public class HexaDecimalTest {
 
     @Test
     public void LongHexaDecimalParseHexa01() {
-        LongHexaDecimal h = new LongHexaDecimal(4);
-        h.SetHexa(new ArrayList<HexaByte>(
-                Arrays.asList(HexaByte.Value(1), HexaByte.Value(51), HexaByte.Value(160), HexaByte.Value(111))));
+        // LongHexaDecimal h = new LongHexaDecimal(4);
+        IntHexaDecimal h = new IntHexaDecimal(4);
+        Uint8[] lb = new Uint8[4];
+        lb[0] = Uint8.Value(1);
+        lb[1] = Uint8.Value(51);
+        lb[2] = Uint8.Value(160);
+        lb[3] = Uint8.Value(111);
+        h.SetHexa(lb);
         h.HexaToValue();
-        long ex = 20160623;
-        Assert.assertEquals(ex, (long) h.GetValue());
+        // long ex = 20160623;
+        int ex = 20160623;
+        Assert.assertEquals(ex, h.GetValue());
     }
 
     @Test
     public void LongHexaDecimalParseHexa02() {
-        LongHexaDecimal h = new LongHexaDecimal(7);
-        h.SetHexa(new ArrayList<HexaByte>(Arrays.asList(HexaByte.Value(0), HexaByte.Value(0), HexaByte.Value(0),
-                HexaByte.Value(1), HexaByte.Value(51), HexaByte.Value(160), HexaByte.Value(111))));
+        // LongHexaDecimal h = new LongHexaDecimal(7);
+        IntHexaDecimal h = new IntHexaDecimal(7);
+        Uint8[] lb = new Uint8[7];
+        lb[0] = Uint8.Value(0);
+        lb[1] = Uint8.Value(0);
+        lb[2] = Uint8.Value(0);
+        lb[3] = Uint8.Value(1);
+        lb[4] = Uint8.Value(51);
+        lb[5] = Uint8.Value(160);
+        lb[6] = Uint8.Value(111);
+        h.SetHexa(lb);
         h.HexaToValue();
-        long ex = 20160623;
-        Assert.assertEquals(ex, (long) h.GetValue());
+        // long ex = 20160623;
+        int ex = 20160623;
+        Assert.assertEquals(ex, h.GetValue());
     }
 
     @Test
     public void LongHexaDecimalValueToHexa01() {
-        LongHexaDecimal h = new LongHexaDecimal(4);
-        h.SetValue(new Long(20160623));
+        // LongHexaDecimal h = new LongHexaDecimal(4);
+        IntHexaDecimal h = new IntHexaDecimal(4);
+        h.SetValue(20160623);
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(1);
-        HexaByte ex2 = HexaByte.Value(51);
-        HexaByte ex3 = HexaByte.Value(160);
-        HexaByte ex4 = HexaByte.Value(111);
+        int ex1 = 1;
+        int ex2 = 51;
+        int ex3 = 160;
+        int ex4 = 111;
         int ex1i = 1;
         int ex2i = 51;
         int ex3i = 160;
         int ex4i = 111;
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
-        Assert.assertEquals(ex3.toInt(), h.GetHexa().get(2).toInt());
-        Assert.assertEquals(ex4.toInt(), h.GetHexa().get(3).toInt());
-        Assert.assertEquals(ex1i, h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2i, h.GetHexa().get(1).toInt());
-        Assert.assertEquals(ex3i, h.GetHexa().get(2).toInt());
-        Assert.assertEquals(ex4i, h.GetHexa().get(3).toInt());
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
+        Assert.assertEquals(ex3, h.GetHexa()[2].GetValue());
+        Assert.assertEquals(ex4, h.GetHexa()[3].GetValue());
+        Assert.assertEquals(ex1i, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2i, h.GetHexa()[1].GetValue());
+        Assert.assertEquals(ex3i, h.GetHexa()[2].GetValue());
+        Assert.assertEquals(ex4i, h.GetHexa()[3].GetValue());
     }
 
     @Test
     public void LongHexaDecimalValueToHexa02() {
-        LongHexaDecimal h = new LongHexaDecimal(7);
-        h.SetValue(new Long(20160623));
+        // LongHexaDecimal h = new LongHexaDecimal(7);
+        IntHexaDecimal h = new IntHexaDecimal(7);
+        h.SetValue(20160623);
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(0);
-        HexaByte ex2 = HexaByte.Value(0);
-        HexaByte ex3 = HexaByte.Value(0);
-        HexaByte ex4 = HexaByte.Value(1);
-        HexaByte ex5 = HexaByte.Value(51);
-        HexaByte ex6 = HexaByte.Value(160);
-        HexaByte ex7 = HexaByte.Value(111);
+        int ex1 = 0;
+        int ex2 = 0;
+        int ex3 = 0;
+        int ex4 = 1;
+        int ex5 = 51;
+        int ex6 = 160;
+        int ex7 = 111;
         int ex1i = 0;
         int ex2i = 0;
         int ex3i = 0;
@@ -536,20 +570,20 @@ public class HexaDecimalTest {
         int ex5i = 51;
         int ex6i = 160;
         int ex7i = 111;
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
-        Assert.assertEquals(ex3.toInt(), h.GetHexa().get(2).toInt());
-        Assert.assertEquals(ex4.toInt(), h.GetHexa().get(3).toInt());
-        Assert.assertEquals(ex5.toInt(), h.GetHexa().get(4).toInt());
-        Assert.assertEquals(ex6.toInt(), h.GetHexa().get(5).toInt());
-        Assert.assertEquals(ex7.toInt(), h.GetHexa().get(6).toInt());
-        Assert.assertEquals(ex1i, h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2i, h.GetHexa().get(1).toInt());
-        Assert.assertEquals(ex3i, h.GetHexa().get(2).toInt());
-        Assert.assertEquals(ex4i, h.GetHexa().get(3).toInt());
-        Assert.assertEquals(ex5i, h.GetHexa().get(4).toInt());
-        Assert.assertEquals(ex6i, h.GetHexa().get(5).toInt());
-        Assert.assertEquals(ex7i, h.GetHexa().get(6).toInt());
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
+        Assert.assertEquals(ex3, h.GetHexa()[2].GetValue());
+        Assert.assertEquals(ex4, h.GetHexa()[3].GetValue());
+        Assert.assertEquals(ex5, h.GetHexa()[4].GetValue());
+        Assert.assertEquals(ex6, h.GetHexa()[5].GetValue());
+        Assert.assertEquals(ex7, h.GetHexa()[6].GetValue());
+        Assert.assertEquals(ex1i, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2i, h.GetHexa()[1].GetValue());
+        Assert.assertEquals(ex3i, h.GetHexa()[2].GetValue());
+        Assert.assertEquals(ex4i, h.GetHexa()[3].GetValue());
+        Assert.assertEquals(ex5i, h.GetHexa()[4].GetValue());
+        Assert.assertEquals(ex6i, h.GetHexa()[5].GetValue());
+        Assert.assertEquals(ex7i, h.GetHexa()[6].GetValue());
     }
 
     @Test
@@ -557,27 +591,27 @@ public class HexaDecimalTest {
         RawStrHexaDecimal h = new RawStrHexaDecimal(5);
         h.SetValue("0x0102030405");
         h.ValueToHexa();
-        HexaByte ex1 = HexaByte.Value(1);
-        HexaByte ex2 = HexaByte.Value(2);
-        HexaByte ex3 = HexaByte.Value(3);
-        HexaByte ex4 = HexaByte.Value(4);
-        HexaByte ex5 = HexaByte.Value(5);
-        Assert.assertEquals(ex1.toInt(), h.GetHexa().get(0).toInt());
-        Assert.assertEquals(ex2.toInt(), h.GetHexa().get(1).toInt());
-        Assert.assertEquals(ex3.toInt(), h.GetHexa().get(2).toInt());
-        Assert.assertEquals(ex4.toInt(), h.GetHexa().get(3).toInt());
-        Assert.assertEquals(ex5.toInt(), h.GetHexa().get(4).toInt());
+        int ex1 = 1;
+        int ex2 = 2;
+        int ex3 = 3;
+        int ex4 = 4;
+        int ex5 = 5;
+        Assert.assertEquals(ex1, h.GetHexa()[0].GetValue());
+        Assert.assertEquals(ex2, h.GetHexa()[1].GetValue());
+        Assert.assertEquals(ex3, h.GetHexa()[2].GetValue());
+        Assert.assertEquals(ex4, h.GetHexa()[3].GetValue());
+        Assert.assertEquals(ex5, h.GetHexa()[4].GetValue());
     }
 
     @Test
     public void RawStrHexaDecimalParseHexa01() {
         RawStrHexaDecimal h = new RawStrHexaDecimal(5);
-        ArrayList<HexaByte> lb = new ArrayList<HexaByte>();
-        lb.add(HexaByte.Value(1));                  // 0x01
-        lb.add(HexaByte.Value(2));                  // 0x02
-        lb.add(HexaByte.Value(3));                  // 0x03
-        lb.add(HexaByte.Value(4));                  // 0x04
-        lb.add(HexaByte.Value(5));                  // 0x05
+        Uint8[] lb = new Uint8[5];
+        lb[0] = Uint8.Value(1);                  // 0x01
+        lb[1] = Uint8.Value(2);                  // 0x02
+        lb[2] = Uint8.Value(3);                  // 0x03
+        lb[3] = Uint8.Value(4);                  // 0x04
+        lb[4] = Uint8.Value(5);                  // 0x05
         h.SetHexa(lb);
         h.HexaToValue();
         String ex = "0x0102030405";

@@ -1,13 +1,14 @@
 package com.yoclabo.example;
 
-import java.util.ArrayList;
-
 public class BCDHexaDecimal extends BaseHexaDecimal {
 
     public BCDHexaDecimal(int size) {
-        super.myType = ValueType.BCD;
         super.mySize = size;
-        super.hexaValue = new ArrayList<HexaByte>();
+    }
+
+    @Override
+    public ValueType GetType() {
+        return ValueType.BCD;
     }
 
     private Integer myValue;
@@ -24,16 +25,27 @@ public class BCDHexaDecimal extends BaseHexaDecimal {
 
     @Override
     public void ValueToHexa() {
-        String parseValue = myValue.toString();
-        parseValue = PadPrefix(parseValue);
-        for (int i = 0; i < parseValue.length() / 2; i++) {
-            hexaValue.add(new HexaByte(parseValue.substring(i * 2, i * 2 + 2)));
+        String value = myValue.toString();
+        if (value.length() % 2 != 0) {
+            value = "0" + value;
+        }
+        while (value.length() < mySize * 2) {
+            value = "00" + value;
+        }
+        hexaValue = new Uint8[mySize];
+        for (int i = 0; i < mySize; i++) {
+            Uint8 item = super.GetChar(value.substring(i * 2, i * 2 + 2));
+            hexaValue[i] = item;
         }
     }
 
     @Override
     public void HexaToValue() {
-        myValue = Integer.parseInt(ListConcatBCD());
+        String value = "";
+        for (int i = 0; i < mySize; i++) {
+            value += super.GetRawStr(hexaValue[i]);
+        }
+        myValue = Integer.parseInt(value);
     }
 
 }

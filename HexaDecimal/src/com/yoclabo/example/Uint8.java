@@ -73,15 +73,18 @@ public class Uint8 {
         if (this == other) {
             return true;
         }
-        if (!(other instanceof Uint8)) {
-            return false;
+        if (other instanceof Uint8) {
+            Uint8 otherValue = (Uint8) other;
+            if (GetValue() == otherValue.GetValue()) {
+                return true;
+            }
+        } else if (other instanceof Integer) {
+            int otherValue = (int) other;
+            if (GetValue() + 128 == otherValue) {
+                return true;
+            }
         }
-        Uint8 otherValue = (Uint8) other;
-        if (GetValue() == otherValue.GetValue()) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
 }

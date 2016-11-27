@@ -1,13 +1,14 @@
 package com.yoclabo.example;
 
-import java.util.ArrayList;
-
 public class RawStrHexaDecimal extends BaseHexaDecimal {
 
     public RawStrHexaDecimal(int size) {
-        super.myType = ValueType.RAW_STR;
         super.mySize = size;
-        super.hexaValue = new ArrayList<HexaByte>();
+    }
+
+    @Override
+    public ValueType GetType() {
+        return ValueType.RAW_STR;
     }
 
     private String myValue;
@@ -24,18 +25,25 @@ public class RawStrHexaDecimal extends BaseHexaDecimal {
 
     @Override
     public void ValueToHexa() {
-        if (myValue.startsWith("0x")) {
-            myValue = myValue.substring(2, myValue.length());
+        String value = myValue;
+        if (value.substring(0, 2).equalsIgnoreCase("0x")) {
+            value = value.substring(2);
         }
-        for (int i = 0; i < myValue.length() / 2; i++) {
-            String oneChar = myValue.substring(i * 2, i * 2 + 2);
-            hexaValue.add(new HexaByte(oneChar));
+        if (value.length() % 2 != 0) {
+            value = "0" + value;
+        }
+        hexaValue = new Uint8[mySize];
+        for (int i = 0; i < mySize; i++) {
+            hexaValue[i] = super.GetChar(value.substring(i * 2, i * 2 + 2));
         }
     }
 
     @Override
     public void HexaToValue() {
-        myValue = "0x" + ListConcat();
+        myValue = "0x";
+        for (int i = 0; i < mySize; i++) {
+            myValue += super.GetRawStr(hexaValue[i]);
+        }
     }
 
 }

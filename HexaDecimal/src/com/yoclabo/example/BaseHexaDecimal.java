@@ -1,20 +1,6 @@
 package com.yoclabo.example;
 
-import java.util.List;
-
 abstract public class BaseHexaDecimal implements IHexaDecimal {
-
-    protected ValueType myType;
-
-    @Override
-    public void SetType(ValueType arg) {
-        myType = arg;
-    }
-
-    @Override
-    public ValueType GetType() {
-        return myType;
-    }
 
     protected int mySize;
 
@@ -28,61 +14,44 @@ abstract public class BaseHexaDecimal implements IHexaDecimal {
         return mySize;
     }
 
-    protected List<HexaByte> hexaValue;
+    protected Uint8[] hexaValue;
 
     @Override
-    public void SetHexa(List<HexaByte> arg) {
+    public void SetHexa(Uint8[] arg) {
         hexaValue = arg;
     }
 
     @Override
-    public List<HexaByte> GetHexa() {
+    public Uint8[] GetHexa() {
         return hexaValue;
     }
 
-    protected String ListConcat() {
-        StringBuilder retVal = new StringBuilder();
-        hexaValue.forEach(b -> retVal.append(b.GetHexa()));
-        return retVal.toString();
+    public String GetRawStr(Uint8 arg) {
+        int upperValue = arg.GetValue() / 16;
+        int lowerValue = arg.GetValue() % 16;
+        char replaceArray[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+        char ret[] = { replaceArray[upperValue], replaceArray[lowerValue] };
+        return String.valueOf(ret);
     }
 
-    protected String ListConcatBCD() {
-        StringBuilder retVal = new StringBuilder();
-        hexaValue.forEach(b -> retVal.append(b.GetHexa()));
-        return retVal.toString();
-    }
-
-    protected String ListConcatDateBCD() {
-        StringBuilder retVal = new StringBuilder();
-        for (int i = hexaValue.size() - 4; i < hexaValue.size(); i++) {
-            retVal.append(hexaValue.get(i).GetHexa());
+    public Uint8 GetChar(String arg) {
+        if (arg.length() != 2) {
+            throw new IllegalArgumentException("Argument length is bad.");
         }
-        return retVal.toString();
-    }
-
-    protected String ListConcatLongDateBCD() {
-        StringBuilder retVal = new StringBuilder();
-        for (int i = hexaValue.size() - 7; i < hexaValue.size(); i++) {
-            retVal.append(hexaValue.get(i).GetHexa());
+        char replaceArray[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+        byte upperValue = 0;
+        for (byte i = 0; i < 16; i++) {
+            if (arg.charAt(0) == replaceArray[i]) {
+                upperValue = i;
+            }
         }
-        return retVal.toString();
-    }
-
-    protected String ListConcatUTF8() {
-        StringBuilder retVal = new StringBuilder();
-        hexaValue.forEach(b -> retVal.append(b.GetHexa()));
-        return retVal.toString();
-    }
-
-    protected String PadPrefix(String value) {
-        if (value.length() % 2 != 0) {
-            value = "0" + value;
+        byte lowerValue = 0;
+        for (byte i = 0; i < 16; i++) {
+            if (arg.charAt(1) == replaceArray[i]) {
+                lowerValue = i;
+            }
         }
-        int iLoopCount = mySize - value.length() / 2;
-        for (int i = 0; i < iLoopCount; i++) {
-            value = "00" + value;
-        }
-        return value;
+        return Uint8.Value(upperValue * 16 + lowerValue);
     }
 
 }
